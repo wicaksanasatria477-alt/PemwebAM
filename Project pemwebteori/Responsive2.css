@@ -1,0 +1,79 @@
+/* =====================================================
+   SPADA MINI - responsive.css
+   Dimuat SETELAH style.css
+   Desktop : lebar > 900px  (tampilan default di style.css)
+   Tablet  : 601px - 900px  (sidebar jadi menu geser)
+   Mobile  : <= 600px
+   ===================================================== */
+
+/* ---------- Desktop besar ---------- */
+@media (min-width: 1400px) {
+  .konten { max-width: 1320px; }
+}
+
+/* ---------- Tablet dan di bawahnya ---------- */
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; }
+
+  /* sidebar jadi panel geser dari kiri */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 270px;
+    height: 100%;
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+  }
+  body.menu-terbuka .sidebar { transform: translateX(0); }
+  body.menu-terbuka .overlay { display: block; }
+  body.menu-terbuka { overflow: hidden; }
+
+  .btn-menu { display: flex; }
+
+  .topbar { padding: 12px 20px; }
+  .konten { padding: 22px 20px; }
+  .footer { padding: 16px 20px; }
+
+  .dua-kolom { grid-template-columns: 1fr; }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 600px) {
+  h1 { font-size: 1.35rem; }
+
+  .topbar { padding: 10px 14px; }
+  .user-teks { display: none; }       /* sisakan avatar saja */
+  .konten { padding: 18px 14px; }
+  .footer { padding: 14px; }
+
+  .page-head { flex-direction: column; align-items: stretch; }
+  .page-head .btn { width: 100%; }
+
+  .grid-kartu { grid-template-columns: 1fr; }
+  .grid-ringkasan { grid-template-columns: 1fr 1fr; }
+
+  .form-baris { grid-template-columns: 1fr; }
+  .form-aksi .btn { flex: 1 1 100%; }
+  .form-kartu { max-width: 100%; }
+
+  .kartu { padding: 16px; }
+
+  .tabel th, .tabel td { padding: 10px 12px; font-size: .92rem; }
+
+  .timer { top: 64px; }
+}
+
+/* ---------- Cetak ---------- */
+@media print {
+  .sidebar, .topbar, .footer, .overlay, .btn, .form-aksi { display: none !important; }
+  .app { display: block; }
+  .konten { padding: 0; max-width: 100%; }
+  body { background: #fff; }
+}
+
+/* ---------- Tambahan modul matkul dan pengumuman ---------- */
+@media (max-width: 600px) {
+  .bar-cari .input, .bar-cari select { max-width: none; }
+  .info-daftar { grid-template-columns: 1fr; gap: 0; }
+  .info-daftar dd { margin-bottom: 10px; }
+}
