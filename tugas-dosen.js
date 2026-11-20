@@ -1,0 +1,12 @@
+/* Dosen: Pengaturan Tugas, materi, penilaian */
+function aTugas(c){return head(c)+`<div class="row" style="margin-bottom:10px"><button class="btn" onclick="addP('${c.id}')">+ Tambah pertemuan</button></div>`+S.m[c.id].map(p=>{const tg=p.tg||{},k=c.id+'-'+p.n,sb=ex(c.id,p.n),ids=Object.keys(sb);
+return `<div class="card"><div class="mh"><b class="no">${p.n}</b><div style="flex:1"><input type="text" id="pt-${k}" value="${esc(p.title)}"><input type="text" id="pd-${k}" value="${esc(p.desc)}"></div></div>${mats(p)}
+<div class="row"><input type="file" id="mf-${k}" style="max-width:260px"><button class="btn g" onclick="addMat('${c.id}',${p.n})">Unggah materi</button></div>
+<div class="tg"><b>Tugas pertemuan ${p.n}</b> <small>(kosongkan judul bila tidak ada tugas)</small><input type="text" id="tt-${k}" placeholder="Judul tugas" value="${esc(tg.t)}"><textarea id="tx-${k}" placeholder="Instruksi tugas">${esc(tg.x)}</textarea><input type="text" id="td-${k}" placeholder="Batas waktu" value="${esc(tg.dl)}">
+<div class="row"><label><input type="checkbox" id="tb-${k}" ${tg.text!==0?'checked':''}> Jawaban teks</label><label><input type="checkbox" id="tf-${k}" ${tg.file!==0?'checked':''}> Unggah file</label><label><input type="checkbox" id="to-${k}" ${tg.open!==0?'checked':''}> Pengumpulan dibuka</label></div>
+<div style="margin-top:8px"><button class="btn" onclick="saveP('${c.id}',${p.n})">Simpan pertemuan</button></div></div>
+${p.tg?`<p><b>${ids.length}/${ST.length}</b> mahasiswa mengumpulkan</p>${ids.length?`<table>${ids.map(i=>{const s=sb[i],nm=ST.find(x=>x[0]==i)?.[1];return `<tr><td>${esc(nm)}</td><td>${esc(s.text)} ${s.file?'📎 '+esc(s.file):''}</td><td style="width:110px"><input type="number" min="0" max="100" placeholder="Nilai" value="${s.nilai??''}" onchange="grade('${c.id}',${p.n},'${i}',this.value)"></td></tr>`}).join('')}</table>`:''}`:''}</div>`}).join('')}
+function addP(c){const a=S.m[c];a.push(mk(a.length+1,'Pertemuan baru','Deskripsi pertemuan.',[],null));render()}
+function addMat(c,n){const f=fl('#mf-'+c+'-'+n);if(!f)return toast('Pilih file materi dulu');S.m[c][n-1].mat.push(f);render();toast('Materi diunggah')}
+function saveP(c,n){const k=c+'-'+n,p=S.m[c][n-1];p.title=$('#pt-'+k).value;p.desc=$('#pd-'+k).value;const t=$('#tt-'+k).value;p.tg=t?{t,x:$('#tx-'+k).value,dl:$('#td-'+k).value,text:+$('#tb-'+k).checked,file:+$('#tf-'+k).checked,open:+$('#to-'+k).checked}:null;render();toast('Pertemuan disimpan')}
+function grade(c,n,i,v){ex(c,n)[i].nilai=v===''?null:+v;toast('Nilai tersimpan')}

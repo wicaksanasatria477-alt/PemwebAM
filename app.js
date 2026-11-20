@@ -1,0 +1,2 @@
+/* Titik masuk aplikasi */
+render();

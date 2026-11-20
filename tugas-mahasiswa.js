@@ -1,0 +1,6 @@
+/* Mahasiswa: halaman Tugas & submit */
+function sTugas(c){return head(c)+S.m[c.id].map(p=>{const tg=p.tg,sb=ex(c.id,p.n)[U.id],k=c.id+'-'+p.n;
+return `<div class="card"><div class="mh"><b class="no">${p.n}</b><div><small>Pertemuan ${p.n}</small><h3>${esc(p.title)}</h3></div></div><p class="mu">${esc(p.desc)}</p>${mats(p)}
+${tg?`<div class="tg"><div class="row"><b>${esc(tg.t)}</b>${sb?`<span class="badge ok">Sudah dikumpulkan</span>`:`<span class="badge bad">Belum dikumpulkan</span>`}${sb&&sb.nilai!=null?`<span class="badge ok">Nilai: ${sb.nilai}/100</span>`:''}</div><p>${esc(tg.x)}</p><small>Batas: ${esc(tg.dl)}</small>
+${tg.open?`${tg.text?`<textarea id="t-${k}" placeholder="Tulis jawaban atau tempel link repositori">${esc(sb?.text)}</textarea>`:''}${tg.file?`<input type="file" id="f-${k}">${sb?.file?`<small>File terkirim: ${esc(sb.file)}</small>`:''}`:''}<div style="margin-top:8px"><button class="btn" onclick="submitT('${c.id}',${p.n})">${sb?'Perbarui pengumpulan':'Kumpulkan tugas'}</button></div>`:'<p><span class="badge bad">Pengumpulan ditutup</span></p>'}</div>`:''}</div>`}).join('')}
+function submitT(c,n){const k=c+'-'+n,t=$('#t-'+k)?.value||'',f=fl('#f-'+k),o=ex(c,n)[U.id]||{};if(!t&&!f&&!o.file)return toast('Isi jawaban atau pilih file dulu');ex(c,n)[U.id]={text:t,file:f||o.file||'',nilai:o.nilai};render();toast('Tugas dikumpulkan')}

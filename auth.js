@@ -1,0 +1,4 @@
+/* Login */
+function login(){$('#app').innerHTML=`<div class="login"><div class="logo" style="font-size:28px">SPADA Lite<small>Learning Management System</small></div><div class="card"><h2>Masuk</h2><label>NIM / NIP</label><input type="text" id="lu"><label>Kata sandi</label><input type="text" id="lp" style="-webkit-text-security:disc"><button class="btn" style="width:100%;margin-top:8px" onclick="doLogin()">Masuk</button><p class="mu">Akun contoh (klik untuk mengisi):</p><div class="row"><button class="btn g" onclick="fill(0)">Mahasiswa</button><button class="btn g" onclick="fill(1)">Dosen / Admin</button></div></div></div>`}
+const fill=i=>{$('#lu').value=USERS[i].id;$('#lp').value=USERS[i].pw};
+function doLogin(){const u=USERS.find(x=>x.id==$('#lu').value&&x.pw==$('#lp').value);if(!u)return toast('NIM/NIP atau kata sandi salah');U=u;V={v:'dash',pn:1};render()}
